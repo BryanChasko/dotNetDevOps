@@ -1,25 +1,25 @@
 name: build
 
-on: 
+on:
   push:
   pull_request:
     branches: [ main ]
     paths:
     - '**.cs'
     - '**.csproj'
-    
-env: 
-  DOTNET_VERSION: '5.0.301'
-  
+
+env:
+  DOTNET_VERSION: '5.0.301' # The .NET SDK version to use
+
 jobs:
   build:
-  
+
     name: build-${{matrix.os}}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
-        
+
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
@@ -30,5 +30,5 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
       
-     - name: Build
-        run: dotnet build --configuration Release --no-restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
